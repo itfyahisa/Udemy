@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function promiseTest1(){
+            return new Promise(ok => {
+                ok('プロミス１です')
+            });
+        }
+        console.log(promiseTest1())
+
+        const promiseTest2 = new Promise(ok => {
+            ok('プロミス２です')
+        })
+        console.log(promiseTest2)
+
+        function testPromise3(input){
+            return new Promise(ok => {
+                ok(`プロミス${input}です`)
+            })
+        }
+        console.log(testPromise3('太郎'))
+
+        function promiseTest4(pay, seconds){
+            return new Promise((ok, ng) => {
+                setTimeout(() => {
+                    if(pay >100){
+                        let change = pay - 100
+                        console.log(`${seconds}秒、おつりは${change}です`)
+                        ok(change)
+                    }else{
+                        ng('お金が足りません')
+                    }
+                }, seconds * 1000)
+            })
+        }
+        
+        promiseTest4(3949, 2).then((change1, seconds) => {
+            console.log(change1)
+            return promiseTest4(change1, secends)
+        }).then(change2 => {
+            console.log(change2)
+        }).catch((e) => {
+            console.log(e)
+        })
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
